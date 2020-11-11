@@ -11,4 +11,4 @@ target_link_libraries(rs-hello-realsense ${DEPENDENCIES})
 include_directories(rs-hello-realsense)
 set_target_properties (rs-hello-realsense PROPERTIES FOLDER "Examples")
 
-install(TARGETS rs-hello-realsense RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
+#install(TARGETS rs-hello-realsense RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})

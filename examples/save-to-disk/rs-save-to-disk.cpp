@@ -18,6 +18,7 @@ void metadata_to_csv(const rs2::frame& frm, const std::string& filename);
 // It can be useful for debugging an embedded system with no display.
 int main(int argc, char * argv[]) try
 {
+    std::cout << "This works /n" ;
     // Declare depth colorizer for pretty visualization of depth data
     rs2::colorizer color_map;
 
@@ -28,9 +29,11 @@ int main(int argc, char * argv[]) try
 
     // Capture 30 frames to give autoexposure, etc. a chance to settle
     for (auto i = 0; i < 30; ++i) pipe.wait_for_frames();
+    std::cout << "Been here" << std::endl;
 
     // Wait for the next set of frames from the camera. Now that autoexposure, etc.
     // has settled, we will write these to disk
+
     for (auto&& frame : pipe.wait_for_frames())
     {
         // We can only save video frames as pngs, so we skip the rest
