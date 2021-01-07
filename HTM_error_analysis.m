@@ -116,17 +116,22 @@ num_cameras = 2; % Left and Right (Stereo Calib)
 LeftHRight = {1,num_patterns};
 deltaRPY = zeros(1,num_patterns);
 deltaXYZ = zeros(1,num_patterns);
-ref = 2;
+ref = 1;
 %for cam_id = 1:num_cameras
     for pattern_id = 1:num_patterns
          fprintf("Pattern %d vs %d\nError Matrix:\n",ref,pattern_id);
+         %Given a transformation from Left(up) camera to Pattern[pattern_id] and a transformation 
+         %from Right (down) Camera to Pattern[pattern_id], we generate a transformation from Left(up) to
+         % right(down) wrt Pattern[pattern_id] --> 4x4 HTM
          LeftHRight{pattern_id} = HTM_cam_LR_pattern(RT_left(pattern_id),RT_right(pattern_id));
+         
+         %Calculate the change in rotation and translation  between Left_H_Right_p1 and Left_H_Right_p[i]
          [dRPY,dXYZ] = DeltaRT_new(LeftHRight{ref},LeftHRight{pattern_id}); % Keep pattern 1 fixed!
          fprintf("Pattern %d vs %d | Error in Rotation(RPY):",ref,pattern_id);
          disp(dRPY);
          fprintf("Pattern %d vs %d | Error in Translation:",ref,pattern_id);
          disp(dXYZ);
-         deltaRPY(pattern_id) = norm(dRPY);
+         deltaRPY(pattern_id) = norm(dRPY); 
          deltaXYZ(pattern_id) = norm(dXYZ);
          %deltaRT(pattern_id).R = deltaRPY;
          %deltaRT(pattern_id).T = deltaXYZ;
