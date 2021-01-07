@@ -41,5 +41,7 @@ RightHTM(1:3, 1:3) = RightHp.R;       % R, T of point cloud 2
 RightHTM(1:3, 4) = RightHp.T;
 
 % Find the difference between the two transformation matrices.
-LeftHRight = LeftHTM \ RightHTM;           %Transform from A2 to A1
+% LeftHRight = LeftHTM \ RightHTM;           %Transform from A2 to A1
+LeftHRight = RightHTM * inv(LeftHTM);   % H_Left2Right = H_Pat2Right * H_Left2Pat
+                                        % ==> H_Left2Right = H_Pat2Right * inv(H_Pat2Left)
 end
